@@ -6,7 +6,7 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:41:52 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/12 14:58:30 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/12 15:30:55 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,11 @@ void   get_server_pid(void)
     ft_putnbr_fd(getpid(), 1); //je l'affiche dans stdout sans allouer de mémoire
 }
 
+int main()
+{
+    
+    while(1)
+    {
+
+    }
+}
