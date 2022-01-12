@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camillebarbit <camillebarbit@student.42    +#+  +:+       +#+        */
+/*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/07 17:43:30 by camillebarb       #+#    #+#             */
-/*   Updated: 2022/01/07 17:43:30 by camillebarb      ###   ########.fr       */
+/*   Created: 2022/01/12 14:41:52 by cbarbit           #+#    #+#             */
+/*   Updated: 2022/01/12 14:58:30 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ il faut faire appel à la fonction getpid() - elle est définie dans <unistd.h>.
 La fonction getpid() est prototypée ainsi: pid_t getpid(void).
 Pid_t est un type de variables (qui correspond au 'process IDs'), défini dans #include <sys/types.h>.
 
-Une fois que j'ai récupéré le PID du processus serveur, je dois l'afficher dans la sortie standard. 
+Une fois que j'ai récupéré le PID du processus serveur, je dois l'afficher dans la sortie standard.
 J'ai deux options: soit je transforme le PID (qui est un nombre) en char via la fonction ITOA, ou je l'affiche via la fonction PUTNBR.
 */
 
@@ -38,7 +38,14 @@ void    get_server_pid(void)
 void   get_server_pid(void)
 {
     pid_t   pid;
-    
+
     pid = getpid();
     ft_putnbr_fd(pid, 1); //je l'affiche dans stdout sans allouer de mémoire
 }
+
+//troisieme option
+void   get_server_pid(void)
+{
+    ft_putnbr_fd(getpid(), 1); //je l'affiche dans stdout sans allouer de mémoire
+}
+
