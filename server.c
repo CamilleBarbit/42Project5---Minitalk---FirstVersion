@@ -6,10 +6,22 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:41:52 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/12 15:30:55 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/14 16:46:20 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+void    ft_catch_sigusr1(int sig)
+{
+    void    (sig); //je mets le sig en void pour ne pas avoir d'erreur a la compilation.
+                    // sig est l'int associe a SIGUSR1.
+}
+
+void    ft_catch_sigusr2(int sig)
+{
+    void    (sig); //je mets le sig en void pour ne pas avoir d'erreur a la compilation.
+                    // sig est l'int associe a SIGUSR2.
+}
 
 /*
 Le premier élément à prendre en compte est le fait que le serveur, une fois lancé, doit afficher son PID.
@@ -51,9 +63,17 @@ void   get_server_pid(void)
 
 int main()
 {
-    
-    while(1)
+    signal(SIGUSR1, ft_catch_sigusr1) //mon programme tourne en boucle jusqu'a reception d'un signal.
+    while(1) //mon programme doit tourner en boucle
     {
 
     }
 }
+
+/*
+
+le prototype de signal(SIGUSR1, ft_catch_sigusr1) ou signal(SIGUSR2, ft_catch_sigusr2)
+C'est la fonction signal qui va interromple ma boucle infinie.
+La fonction ft_catch est une fonction de type void, qui prend l'int associe a mon signal en question en parametre et qui execute une action particuliere.
+Atention a bien declare
+*/
