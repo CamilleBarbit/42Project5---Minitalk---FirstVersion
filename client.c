@@ -6,7 +6,7 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:07:46 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/18 14:43:51 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/18 15:05:37 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ void	char_to_binary(char c, pid_t pid) // ou int pid?
 	int	i;
 
 }
+/* La fonction char_to_binary va convertir chaque caractere de mon argv[2] en binaire.
+Avant de lui envoyer chaque caractere, il faut que je parcours mon argv[2].
+*/
+
+void	ft_send_each_char_of_argv2(char *str, pid_t pid) //je lui envoie mon argv[2] + le pid du serveur!
+{
+	int	i;
+	while (str[i])
+	{
+		char_to_binary(str[i], pid);
+		i++;
+	}
+}
 
 int	ft_is_digit(char *str) //cette fonction sert a gerer que mon pid est bien compose uniquement de chiffres!
 {
@@ -37,21 +50,22 @@ int	ft_is_digit(char *str) //cette fonction sert a gerer que mon pid est bien co
 	}
 	return (0);
 }
+
 int	ft_check_parameters(int argc, char **argv)
 {
 	if (argc < 3)
 	{
-		ft_printf("Minitalk cannot work: Too few arguments!");
+		ft_printf("Minitalk cannot work: Too few arguments!\n");
 		return (1);
 	}
 	if (argc > 3)
 	{
-		ft_printf("Minitalk cannot work: Too many arguments!");
+		ft_printf("Minitalk cannot work: Too many arguments!\n");
 		return (1);
 	}
 	if ((ft_is_digit(argv[1]) == 1)|| (ft_atoi(argv[1]) < 0)) //si mon pid contient autre chose que des chiffres ou si pid < 0
 	{
-		ft_printf("Minitalk cannot work : There is an error with the PID!");
+		ft_printf("Minitalk cannot work : There is an error with the PID!\n");
 		return (1);
 	else
 		return (0);
