@@ -6,7 +6,7 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:41:52 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/14 16:46:20 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/18 12:31:57 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,27 @@ void   get_server_pid(void)
     ft_putnbr_fd(getpid(), 1); //je l'affiche dans stdout sans allouer de mémoire
 }
 
+void    ft_handle_sigusr1(int signal) //elle definit le comportement a adopter si je recois le signal SIGUSR1
+{
+
+
+}
+void    ft_handle_sigusr2(int signal) //elle definit le comportement a adopter si je recois le signal SIGUSR2
+{
+
+}
+
 int main()
 {
-    signal(SIGUSR1, ft_catch_sigusr1) //mon programme tourne en boucle jusqu'a reception d'un signal.
-    while(1) //mon programme doit tourner en boucle
-    {
-
-    }
+    struct sigaction    sa;
+    sa.sa_sigaction = ft_handle_sign
+    signal(SIGUSR1, ft_handle_sigusr1); //cette fonction permet de 'catch' un signal
+    signal(SIGUSR2, ft_handle_sigusr2); //sinal interromp ma boucle infinie
+    while(1); //mon programme doit tourner en boucle
+    return (0);
 }
 
 /*
-
 le prototype de signal(SIGUSR1, ft_catch_sigusr1) ou signal(SIGUSR2, ft_catch_sigusr2)
-C'est la fonction signal qui va interromple ma boucle infinie.
-La fonction ft_catch est une fonction de type void, qui prend l'int associe a mon signal en question en parametre et qui execute une action particuliere.
-Atention a bien declare
+La fonction ft_handle est une fonction de type void, qui prend l'int associe a mon signal en question en parametre et qui execute une action particuliere.
 */
