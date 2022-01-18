@@ -6,7 +6,7 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:41:52 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/18 12:31:57 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/18 13:51:37 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ void    ft_handle_sigusr2(int signal) //elle definit le comportement a adopter s
 int main()
 {
     struct sigaction    sa;
-    sa.sa_sigaction = ft_handle_sign
-    signal(SIGUSR1, ft_handle_sigusr1); //cette fonction permet de 'catch' un signal
-    signal(SIGUSR2, ft_handle_sigusr2); //sinal interromp ma boucle infinie
+    sa.sa_sigaction = ft_handle_signals; //sa_sigaction est defini dans la structure sigaction.
+    // signal(SIGUSR1, ft_handle_sigusr1); //cette fonction permet de 'catch' un signal
+    // signal(SIGUSR2, ft_handle_sigusr2); //sinal interromp ma boucle infinie
     while(1); //mon programme doit tourner en boucle
     return (0);
 }
