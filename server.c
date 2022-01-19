@@ -6,22 +6,9 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:41:52 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/18 13:51:37 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/19 15:57:23 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-void    ft_catch_sigusr1(int sig)
-{
-    void    (sig); //je mets le sig en void pour ne pas avoir d'erreur a la compilation.
-                    // sig est l'int associe a SIGUSR1.
-}
-
-void    ft_catch_sigusr2(int sig)
-{
-    void    (sig); //je mets le sig en void pour ne pas avoir d'erreur a la compilation.
-                    // sig est l'int associe a SIGUSR2.
-}
 
 /*
 Le premier élément à prendre en compte est le fait que le serveur, une fois lancé, doit afficher son PID.
@@ -34,54 +21,50 @@ Une fois que j'ai récupéré le PID du processus serveur, je dois l'afficher da
 J'ai deux options: soit je transforme le PID (qui est un nombre) en char via la fonction ITOA, ou je l'affiche via la fonction PUTNBR.
 */
 
-//première option
-void    get_server_pid(void)
+void    ft_handle_signals(int signum, siginfo_t *info, void *notuseful)
 {
-    pid_t   pid;
-    char    *str_pid;
+    static int  i;
+    static int  j;
+    static char str[100000];
+    (void)info; //je n'utilise pas ce parametre
+    (void)notuseful; //je n'utilise pas ce parametre
 
-    pid = getpid();
-    str_pid = itoa(pid);
-    ft_putendel_fd(str_pid, 1); //je l'affiche dans stdout
-    free(str_pid); //toute mémoi allouée doit être free
-}
-
-//deuxième option
-void   get_server_pid(void)
-{
-    pid_t   pid;
-
-    pid = getpid();
-    ft_putnbr_fd(pid, 1); //je l'affiche dans stdout sans allouer de mémoire
-}
-
-//troisieme option
-void   get_server_pid(void)
-{
-    ft_putnbr_fd(getpid(), 1); //je l'affiche dans stdout sans allouer de mémoire
-}
-
-void    ft_handle_sigusr1(int signal) //elle definit le comportement a adopter si je recois le signal SIGUSR1
-{
-
-
-}
-void    ft_handle_sigusr2(int signal) //elle definit le comportement a adopter si je recois le signal SIGUSR2
-{
-
+    if (i = 0)
+        s[j] = '\0';
+    if (i < 8)
+    {
+        s[j] = s[j] << 1;
+        if (signum == SIGUSR2)
+            s[j] = s[j] + 1;
+        if (signum == SIGUSR1)
+            s[j] = s[j] + 0;
+        i++;
+    }
+    if (i == 8)
+    {
+        if (!s[j] || j = 99999)
+        {
+            write(1, s, j);
+            s[0] = '\0';
+            i = 0;
+            j = 0;
+            return ;
+        }
+        i = 0;
+        j++;
+    }
 }
 
 int main()
 {
     struct sigaction    sa;
     sa.sa_sigaction = ft_handle_signals; //sa_sigaction est defini dans la structure sigaction.
-    // signal(SIGUSR1, ft_handle_sigusr1); //cette fonction permet de 'catch' un signal
-    // signal(SIGUSR2, ft_handle_sigusr2); //sinal interromp ma boucle infinie
-    while(1); //mon programme doit tourner en boucle
+    sigaction(SIGUSR1, &sa, NULL);
+    sigaction(SIGUSR2, &sa, NULL);
+    printf("The server's PID is the following: %d", getpid()); //j'affiche le PID du server!
+    while(1)//mon programme doit tourner en boucle
+    {
+
+    }
     return (0);
 }
-
-/*
-le prototype de signal(SIGUSR1, ft_catch_sigusr1) ou signal(SIGUSR2, ft_catch_sigusr2)
-La fonction ft_handle est une fonction de type void, qui prend l'int associe a mon signal en question en parametre et qui execute une action particuliere.
-*/
