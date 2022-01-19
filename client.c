@@ -6,18 +6,16 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:07:46 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/19 13:11:12 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/19 13:58:03 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //je definis 0 quand tout va bien et 1 quand il y a une erreur
 
-/* Le client va envoyer un message au server sous forme de signaux a dechiffrer.
-Je vais devoir determiner par exemple que mon SIGUSR1 vaut 0 et mon SIGUSR2 vaut 1.
-En fonction du chiffre correspond, je vais transmettre le signal qui convient via la fonction kill.
-
+/*
+si c en binaire correspond a 1101, alors 1101 >> 1 donne -> 110! J'ai tout decale d'un rang.
+le & 1 me permet de faire une operation et d'ajouter 0001 a mon nombre.
 */
-
 void	char_to_binary(char c, pid_t pid) // ou int pid?
 {
 	int	i;
@@ -27,8 +25,10 @@ void	char_to_binary(char c, pid_t pid) // ou int pid?
 	while (i >= 0)
 	{
 		bit = (c >> i) & 1; //cela va decaler de i rangs la version en binaire de ma lettre c.
-						//si c en binaire correspond a 1101, alors 1101 >> 1 donne -> 110! J'ai tout decale d'un rang.
-		i--;			//le & 1 me permet de faire une operation et d'ajouter 0001 a mon nombre.
+		if (bit == 0)
+
+		if (bit == 1)
+		i--;
 	}
 
 
