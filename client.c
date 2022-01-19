@@ -6,7 +6,7 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:07:46 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/18 15:05:37 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/19 13:05:39 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ En fonction du chiffre correspond, je vais transmettre le signal qui convient vi
 void	char_to_binary(char c, pid_t pid) // ou int pid?
 {
 	int	i;
+	int	bit;
+
+	i = 7;
+	while (i >= 0)
+	{
+		bit = (c >> i) & 1; //cela va decaler de i rangs la version en binaire de ma lettre c.
+						//si c en binaire correspond a 1101, alors 1101 >> 1 donne -> 110! J'ai tout decale d'un rang.
+		i--;			//le & 1 me permet de faire une operation et d'ajouter 0001 a mon nombre.
+	}
+
 
 }
 /* La fonction char_to_binary va convertir chaque caractere de mon argv[2] en binaire.
