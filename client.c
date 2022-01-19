@@ -6,16 +6,12 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:07:46 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/19 13:58:03 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/19 15:48:59 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //je definis 0 quand tout va bien et 1 quand il y a une erreur
 
-/*
-si c en binaire correspond a 1101, alors 1101 >> 1 donne -> 110! J'ai tout decale d'un rang.
-le & 1 me permet de faire une operation et d'ajouter 0001 a mon nombre.
-*/
 void	char_to_binary(char c, pid_t pid) // ou int pid?
 {
 	int	i;
@@ -26,25 +22,27 @@ void	char_to_binary(char c, pid_t pid) // ou int pid?
 	{
 		bit = (c >> i) & 1; //cela va decaler de i rangs la version en binaire de ma lettre c.
 		if (bit == 0)
-
+			kill(pid, SIGUSR1);
 		if (bit == 1)
+			kill(pid, SIGUSR2);
+		usleep(20);
 		i--;
 	}
-
-
+	usleep(100);
 }
+
 /* La fonction char_to_binary va convertir chaque caractere de mon argv[2] en binaire.
 Avant de lui envoyer chaque caractere, il faut que je parcours mon argv[2].
 */
-
 void	ft_send_each_char_of_argv2(char *str, pid_t pid) //je lui envoie mon argv[2] + le pid du serveur!
 {
 	int	i;
-	while (str[i])
+	while (str[i]) //sous-entendu while (str[i] != '\0'
 	{
 		char_to_binary(str[i], pid);
 		i++;
 	}
+	char_to_binary(str[i], pid); //je l'appelle une derniere fois pour qu'elle envoie le '\0'
 }
 
 int	ft_is_digit(char *str) //cette fonction sert a gerer que mon pid est bien compose uniquement de chiffres!
@@ -95,7 +93,6 @@ int	main(int argc, char **argv)
 	if (ft_check_parameters(argc, argv) == 1)
 		return (1);
 	if (argc == 3)
-	{
-
-	}
+		ft_send_each_char_of_argv2(agv[2], atoi(argv[1]));
+	return (0);
 }
