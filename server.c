@@ -10,32 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-Le premier élément à prendre en compte est le fait que le serveur, une fois lancé, doit afficher son PID.
-Le PID est un code unique attibué à tout processus lors de son démarrage. Pour pouvoir afficher le PID du processus serveur,
-il faut faire appel à la fonction getpid() - elle est définie dans <unistd.h>.
-La fonction getpid() est prototypée ainsi: pid_t getpid(void).
-Pid_t est un type de variables (qui correspond au 'process IDs'), défini dans #include <sys/types.h>.
-
-Une fois que j'ai récupéré le PID du processus serveur, je dois l'afficher dans la sortie standard.
-J'ai deux options: soit je transforme le PID (qui est un nombre) en char via la fonction ITOA, ou je l'affiche via la fonction PUTNBR.
-*/
-
+unsigned char   *str = NULL; //je cree une variable globale dans laquelle je stocke tous mes chars.
 
 void    ft_handle_signals(int signum, siginfo_t *info, void *useless)
 {
-    static int  i; //le i correspond au nombre de signaux que je vais recevoir.
+    static int  i = 0; //le i correspond au nombre de signaux que je vais recevoir.
 
-    i = 0;
-    while (i <= 32)
-    {
-        //je dois envoyer dans une autre fonction qui va modifier le signal recu et stocker les 32 premiers bits dans un int
-    }
+    if (i < 32)
+        binary_to_int(signum, i);//je dois envoyer dans une autre fonction qui va modifier le signal recu et stocker les 32 premiers bits dans un int.  
+    else
+        binary_to_char(signum, );
+    i++;
 }
 
-void    binary_to_int(int signum)
+void    binary_to_int(int signum, i)
 {
-    
+    static int  len = 0;
+
+    len = len << 1; //j'ai besoin du i
+    if (signum == SIGUSR1)
+        len = len + 0;
+    if (signum == SIGUSR2)
+         len = len + 1;
+
 }
 // void    ft_handle_signals(int signum, siginfo_t *info, void *useless)
 // {
