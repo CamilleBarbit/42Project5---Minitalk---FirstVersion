@@ -6,7 +6,7 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:07:46 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/19 15:48:59 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/21 11:05:07 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,22 @@ void	char_to_binary(char c, pid_t pid) // ou int pid?
 	usleep(100);
 }
 
-/* La fonction char_to_binary va convertir chaque caractere de mon argv[2] en binaire.
-Avant de lui envoyer chaque caractere, il faut que je parcours mon argv[2].
-*/
-void	ft_send_each_char_of_argv2(char *str, pid_t pid) //je lui envoie mon argv[2] + le pid du serveur!
+int	ft_strlen(char *str) //cette fonction me permet de calculer la taille de mon argv[1]
 {
 	int	i;
-	while (str[i]) //sous-entendu while (str[i] != '\0'
-	{
-		char_to_binary(str[i], pid);
+
+	i = 0;
+	while (str[i])
 		i++;
-	}
-	char_to_binary(str[i], pid); //je l'appelle une derniere fois pour qu'elle envoie le '\0'
+	return (i);
+}
+
+void	int_to_binary(int c, pid_t pid)
+{
+	int	i;
+	int	bit;
+
+	i = 32
 }
 
 int	ft_is_digit(char *str) //cette fonction sert a gerer que mon pid est bien compose uniquement de chiffres!
@@ -80,8 +84,6 @@ int	ft_check_parameters(int argc, char **argv)
 }
 
 /*
-Peut-etre y-a-t-il d'autres elements a prendre en compte en gestion d'erreur?
-
 A chaque fois que j'utilise la fonction kill, je dois utiliser la fonction usleep.
 
 Dans cette partie, je vais devoir utiliser la fonction kill(pid_t pid, int sig) qui est la fonction qui
@@ -90,9 +92,19 @@ permet au client d'envoyer un signal au serveur.
 
 int	main(int argc, char **argv)
 {
+	int	i;
+
+	i = 0;
 	if (ft_check_parameters(argc, argv) == 1)
 		return (1);
 	if (argc == 3)
-		ft_send_each_char_of_argv2(agv[2], atoi(argv[1]));
+	{
+		while (argv[2][i])
+		{
+			char_to_binary(argv[2][i], atoi(argv[1])); //-> cette fonction prend chaque char de argv[2] et le PID du server (soit argv[1])
+			i++;
+		}
+		char_to_binary(argv[2][i], atoi(argv[1])); //j'envoie le '\0'
+	}
 	return (0);
 }
