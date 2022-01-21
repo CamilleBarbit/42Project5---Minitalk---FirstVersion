@@ -6,7 +6,7 @@
 /*   By: cbarbit <cbarbit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:41:52 by cbarbit           #+#    #+#             */
-/*   Updated: 2022/01/19 15:57:23 by cbarbit          ###   ########.fr       */
+/*   Updated: 2022/01/21 10:15:43 by cbarbit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,22 @@ void    ft_handle_signals(int signum, siginfo_t *info, void *notuseful)
     (void)notuseful; //je n'utilise pas ce parametre
 
     if (i = 0)
-        s[j] = '\0';
+        str[j] = '\0';
     if (i < 8)
     {
-        s[j] = s[j] << 1;
+        str[j] = str[j] << 1;
         if (signum == SIGUSR2)
-            s[j] = s[j] + 1;
+            str[j] = str[j] + 1;
         if (signum == SIGUSR1)
-            s[j] = s[j] + 0;
+            str[j] = str[j] + 0;
         i++;
     }
     if (i == 8)
     {
-        if (!s[j] || j = 99999)
+        if (!str[j] || j = 99999)
         {
-            write(1, s, j);
-            s[0] = '\0';
+            write(1, str, j);
+            str[0] = '\0';
             i = 0;
             j = 0;
             return ;
