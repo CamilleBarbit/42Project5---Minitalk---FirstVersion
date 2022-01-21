@@ -22,19 +22,20 @@ int	ft_strlen(char *str) //cette fonction me permet de calculer la taille de mon
 	return (i);
 }
 
-void	char_to_binary(char c, pid_t pid) // ou int pid?
+void	char_to_binary(char c, pid_t pid)
 {
-	int	i;
-	int	bit;
+	int				i;
+	unsigned int	bit;
 
 	i = 7;
+	bit = 0;
 	while (i >= 0)
 	{
 		bit = (c >> i) & 1; //cela va decaler de i rangs la version en binaire de ma lettre c.
-		if (bit == 0)
-			kill(pid, SIGUSR1);
 		if (bit == 1)
 			kill(pid, SIGUSR2);
+		else 
+			kill(pid, SIGUSR1);
 		usleep(20);
 		i--;
 	}
@@ -44,17 +45,18 @@ void	char_to_binary(char c, pid_t pid) // ou int pid?
 
 void	int_to_binary(int c, pid_t pid) //testons en envoyant la longueur de ma chaine de caractere, soit de mon argv[2].
 {
-	int	i;
-	int	bit;
+	int				i;
+	unsigned int	bit;
 
 	i = 32;
+	bit = 0;
 	while (i >= 0)
 	{
 		bit = (c >> i) & 1; //cela va decaler de i rangs la version en binaire de ma lettre c.
-		if (bit == 0)
-			kill(pid, SIGUSR1);
 		if (bit == 1)
 			kill(pid, SIGUSR2);
+		else
+			kill(pid, SIGUSR1);
 		usleep(20);
 		i--;
 	}
@@ -96,13 +98,6 @@ int	ft_check_parameters(int argc, char **argv)
 		return (0);
 }
 
-/*
-A chaque fois que j'utilise la fonction kill, je dois utiliser la fonction usleep.
-
-Dans cette partie, je vais devoir utiliser la fonction kill(pid_t pid, int sig) qui est la fonction qui
-permet au client d'envoyer un signal au serveur.
- */
-
 int	main(int argc, char **argv)
 {
 	int	i;
@@ -113,12 +108,12 @@ int	main(int argc, char **argv)
 	if (argc == 3)
 	{
 		int_to_binary(ft_strlen(argv[2]), atoi(argv[1])); //je lui envoie la taille de mon argv[2]
-		while (argv[2][i])
+		while (argv[2][i]) // soit while (argv[2][i] != '\0')
 		{
 			char_to_binary(argv[2][i], atoi(argv[1])); //-> cette fonction prend chaque char de argv[2] et le PID du server (soit argv[1])
 			i++;
 		}
-		char_to_binary(argv[2][i], atoi(argv[1])); //j'envoie le '\0'
+		char_to_binary(argv[2][i], atoi(argv[1])); //j'apelle la fonction une derniere fois pour envoyer le '\0'
 	}
 	return (0);
 }
