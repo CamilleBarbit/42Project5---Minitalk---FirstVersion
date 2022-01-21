@@ -10,6 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+void    binary_to_int(int signum, i)
+{
+    static int  len = 0;
+
+    if (i < 32)
+    {
+        len = len << 1; 
+        if (signum == SIGUSR1)
+            len = len + 0;
+        if (signum == SIGUSR2)
+            len = len + 1;
+    }
+    if (i == 31)
+    {
+        str = malloc(sizeof(char) * (len + 1));
+        if (!str)
+            return ;
+        ft_memset(str, 0, len); //je mets des \0 dans ma string pour que ca soit propre.
+    }
+}
+   
+
+void    binary_to_char(int signum, int bit, int index)
+{
+    if (bit < 7)
+    {
+        str[index] = str[index] << 1; //dans cette partie je traduis mon char en binaire
+        if (signum == SIGUSR2)
+            str[index] = str[index] + 1;
+        if (signum == SIGUSR1)
+            str[index] = str[index] + 0;
+    }
+}
+
 unsigned char   *str = NULL; //je cree une variable globale dans laquelle je stocke tous mes chars.
 
 void    ft_handle_signals(int signum, siginfo_t *info, void *useless)
@@ -19,21 +53,12 @@ void    ft_handle_signals(int signum, siginfo_t *info, void *useless)
     if (i < 32)
         binary_to_int(signum, i);//je dois envoyer dans une autre fonction qui va modifier le signal recu et stocker les 32 premiers bits dans un int.  
     else
-        binary_to_char(signum, );
+        binary_to_char(signum, (i % 8), (i - 32) / 8); 
     i++;
 }
 
-void    binary_to_int(int signum, i)
-{
-    static int  len = 0;
 
-    len = len << 1; //j'ai besoin du i
-    if (signum == SIGUSR1)
-        len = len + 0;
-    if (signum == SIGUSR2)
-         len = len + 1;
 
-}
 // void    ft_handle_signals(int signum, siginfo_t *info, void *useless)
 // {
 //     static int  i;
